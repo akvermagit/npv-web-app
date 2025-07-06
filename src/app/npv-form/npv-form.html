@@ -1,0 +1,25 @@
+
+<div>
+  <h2>NPV Calculator</h2>
+<div>
+
+
+<div>
+  <label>Cash Flows (comma-separated):</label>
+  <input [(ngModel)]="cashFlowsInput" placeholder="-1000,200,300,400,500,600"  />
+</div>
+<div>
+<label>Lower Bound:</label>
+  <input [(ngModel)]="lowerBoundRate" placeholder="0.5" />
+</div>
+<div>
+<label>Upper Bound:</label>
+  <input [(ngModel)]="upperBoundRate" placeholder="1" />
+</div>
+
+<label>Rate Incriment:</label>
+  <input [(ngModel)]="rateIncrement" placeholder="0.15" />
+  <button (click)="submit()">Calculate</button>
+
+  <app-npv-results [results]="results"></app-npv-results>
+</div>
