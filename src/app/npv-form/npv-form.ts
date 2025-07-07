@@ -28,13 +28,9 @@ results: { [rate: string]: number } | null = null;
 constructor(private npvService: Npv) {}
 
 submit() {
-    const cashFlows = this.cashFlowsInput.split(',').map(Number);
-
-    this.npvService.calculateNPV(cashFlows, this.lowerBoundRate, this.upperBoundRate, this.rateIncrement).subscribe(data => {
-      this.results = data;
-    });
+ const cashFlows = this.cashFlowsInput.split(',').map(Number);
+ this.npvService.calculateNPV(cashFlows, this.lowerBoundRate, this.upperBoundRate, this.rateIncrement).subscribe(data => {
+ this.results = data;
+ });
   }
-
-
-
 }
