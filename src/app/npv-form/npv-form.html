@@ -1,25 +1,73 @@
+<form #npvForm="ngForm" (ngSubmit)="submit()" novalidate>
+  <div>
+    <label>Cash Flows (comma-separated):</label>
+    <input
+      name="cashFlowsInput"
+      [(ngModel)]="cashFlowsInput"
+      #cashFlowsInputModel="ngModel"
+      required
+      pattern="^[-]?\d+(\.\d+)?(,[-]?\d+(\.\d+)?)*$"
+      placeholder="-1000,200,300,400,500,600"
+    />
+    <div *ngIf="cashFlowsInputModel.invalid && cashFlowsInputModel.touched">
+      <small *ngIf="cashFlowsInputModel.errors?.['required']">Cash flows are required.</small>
+      <small *ngIf="cashFlowsInputModel.errors?.['pattern']">Enter valid comma-separated numbers.</small>
+    </div>
+  </div>
 
-<div>
-  <h2>NPV Calculator</h2>
-<div>
+  <div>
+    <label>Lower Bound:</label>
+    <input
+      name="lowerBoundRate"
+      type="number"
+      step="any"
+      min="0"
+      [(ngModel)]="lowerBoundRate"
+      #lowerBoundModel="ngModel"
+      required
+      placeholder="0.5"
+    />
+    <div *ngIf="lowerBoundModel.invalid && lowerBoundModel.touched">
+      <small *ngIf="lowerBoundModel.errors?.['required']">Lower bound is required.</small>
+      <small *ngIf="lowerBoundModel.errors?.['min']">Lower bound must be 0 or greater.</small>
+    </div>
+  </div>
 
+  <div>
+    <label>Upper Bound:</label>
+    <input
+      name="upperBoundRate"
+      type="number"
+      step="any"
+      [(ngModel)]="upperBoundRate"
+      #upperBoundModel="ngModel"
+      required
+      placeholder="1"
+    />
+    <div *ngIf="upperBoundModel.invalid && upperBoundModel.touched">
+      <small *ngIf="upperBoundModel.errors?.['required']">Upper bound is required.</small>
+    </div>
+  </div>
 
-<div>
-  <label>Cash Flows (comma-separated):</label>
-  <input [(ngModel)]="cashFlowsInput" placeholder="-1000,200,300,400,500,600"  />
-</div>
-<div>
-<label>Lower Bound:</label>
-  <input [(ngModel)]="lowerBoundRate" placeholder="0.5" />
-</div>
-<div>
-<label>Upper Bound:</label>
-  <input [(ngModel)]="upperBoundRate" placeholder="1" />
-</div>
+  <div>
+    <label>Rate Increment:</label>
+    <input
+      name="rateIncrement"
+      type="number"
+      step="any"
+      min="0.01"
+      [(ngModel)]="rateIncrement"
+      #rateIncrementModel="ngModel"
+      required
+      placeholder="0.15"
+    />
+    <div *ngIf="rateIncrementModel.invalid && rateIncrementModel.touched">
+      <small *ngIf="rateIncrementModel.errors?.['required']">Rate increment is required.</small>
+      <small *ngIf="rateIncrementModel.errors?.['min']">Rate increment must be at least 0.01.</small>
+    </div>
+  </div>
 
-<label>Rate Incriment:</label>
-  <input [(ngModel)]="rateIncrement" placeholder="0.15" />
-  <button (click)="submit()">Calculate</button>
+  <button type="submit" [disabled]="npvForm.invalid">Calculate</button>
+</form>
 
-  <app-npv-results [results]="results"></app-npv-results>
-</div>
+<app-npv-results [results]="results"></app-npv-results>

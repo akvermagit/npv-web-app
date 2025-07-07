@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, ElementRef, inject, Input, OnChanges, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Chart, ChartData, ChartOptions } from 'chart.js';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -13,8 +12,6 @@ export class NpvResults implements OnChanges, OnInit {
 
   @Input() results: { [rate: string]: number } | null = null;
 
-  chartData: ChartData<'line'> = { labels: [], datasets: [] };
-  chartOptions: ChartOptions = { responsive: true };
 
    basicData: any;
 
@@ -22,26 +19,12 @@ export class NpvResults implements OnChanges, OnInit {
 
     platformId = inject(PLATFORM_ID);
 
-    //configService = inject(AppConfigService);
-
     constructor(private cd: ChangeDetectorRef) {}
 
-    // themeEffect = effect(() => {
-    //     if (this.configService.transitionComplete()) {
-    //         if (this.designerService.preset()) {
-    //             this.initChart();
-    //         }
-    //     }
-    // });
-
     ngOnInit(): void {
-        //this.showChart();
     }
 
     showChart(label:any, data:any){
-    //  if (isPlatformBrowser(this.platformId)) {
-
-      console.log(data);
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--p-text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
@@ -51,7 +34,7 @@ export class NpvResults implements OnChanges, OnInit {
                 labels: label,
                 datasets: [
                     {
-                        label: 'Sales',
+                        label: 'NPV',
                         data: data,
                         backgroundColor: [
                             'rgba(249, 115, 22, 0.2)',
@@ -94,7 +77,6 @@ export class NpvResults implements OnChanges, OnInit {
                 },
             };
             this.cd.markForCheck()
-       // }
 
     }
 
@@ -108,17 +90,6 @@ export class NpvResults implements OnChanges, OnInit {
       const labels = Object.keys(this.results);
       const data = Object.values(this.results);
       this.showChart(labels, data);
-      this.chartData = {
-        labels,
-        datasets: [
-          {
-            label: 'NPV vs Discount Rate',
-            data,
-            borderColor: 'blue',
-            fill: false
-          }
-        ]
-      };
     }
   }
 }

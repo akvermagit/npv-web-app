@@ -4,13 +4,14 @@ import { Npv } from '../npv';
 import { NpvResults } from "../npv-results/npv-results";
 import { FormGroup, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-npv-form',
   standalone:true,
-  imports: [NpvResults, FormsModule],
+  imports: [NpvResults,CommonModule, FormsModule],
   providers:[HttpClient],
   templateUrl: './npv-form.html',
   styleUrl: './npv-form.scss',
