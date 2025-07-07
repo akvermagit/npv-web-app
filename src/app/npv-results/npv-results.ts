@@ -49,6 +49,8 @@ export class NpvResults implements OnChanges, OnInit {
             };
 
             this.basicOptions = {
+              responsive: true,
+
                 plugins: {
                     legend: {
                         labels: {
@@ -58,6 +60,7 @@ export class NpvResults implements OnChanges, OnInit {
                 },
                 scales: {
                     x: {
+                      beginAtZero: true,
                         ticks: {
                             color: textColorSecondary,
                         },
